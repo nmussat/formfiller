@@ -1,18 +1,13 @@
-application: formfiller
+application: form-filler
 version: 1
 runtime: python
 api_version: 1
 
 handlers:
-- url: /css
-  static_dir: static/css
   
-- url: /js
-  static_dir: static/js
+- url: /static/
+  static_dir: static/
   
-- url: /img
-  static_dir: static/img
-
 - url: /admin/.*
   script: $PYTHON_LIB/google/appengine/ext/admin
   login: admin
