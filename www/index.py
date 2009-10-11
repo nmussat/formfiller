@@ -24,21 +24,13 @@ from google.appengine.ext.webapp import template
 
 class IndexHandler(webapp.RequestHandler):
 
-  def get(self):
+	def get(self):
 		user = users.get_current_user()
-		if user:
-			greetings = 'Hey there, ' + user.nickname()
-			url = users.create_logout_url(self.request.uri)
-			url_linktext = 'Logout'
-		else:
-			greetings = ''
-			url = users.create_login_url(self.request.uri)
-			url_linktext = 'Login'
 
 		template_values = {
-			'greetings': greetings,
-			'url': url,
-			'url_linktext': url_linktext,
+			'user': user,
+			'loginUrl': users.create_login_url('/'),
+			'logoutUrl': users.create_login_url('/')
 		}
 
 		path = os.path.join(os.path.dirname(__file__), 'index.html')

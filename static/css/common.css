@@ -1,24 +1,42 @@
 body {
-	background-color: #ddf;
+	background-color: #d5fad5;
 	font-family: 'Helvetica Neue', arial, sans-serif;
 }
 
-#content {
-	margin: 100px auto 0;
-	width: 600px;
+#body {
+	margin: 80px auto 0;
+	width: 800px;
 }
 
-#content h1 {
+#header {
+	clear: both;
+}
+
+#header h1 {
 	color: #fff;
 	font-size: 2.5em;
+	float: left;
 	margin: 0px;
-	-webkit-text-stroke: 1px #99f;
+	-webkit-text-stroke: 1px #7a7;
 }
 
-.box {
+#header h1 a {
+	color: #000;
+	text-decoration: none;
+}
+
+#header #account {
+	float: right;
+	height: 2.5em;
+	line-height: 2.5em;
+	vertical-align: bottom;
+}
+
+#page {
 	background-color: #fff;
-	-webkit-border-radius: 8px;
+	clear: both;
 	padding: 10px;
+	-webkit-border-radius: 8px;
 }
 
 h2 {
