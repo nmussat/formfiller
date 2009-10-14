@@ -15,22 +15,26 @@
 # limitations under the License.
 #
 
+import logging
 import os
+import sys
+import pprint
 import wsgiref.handlers
 from google.appengine.api import users
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp import template
+from google.appengine.ext.webapp.util import run_wsgi_app
 
-class IndexHandler(webapp.RequestHandler):
+from model import *
+from www.index import *
+from www.account import *
 
-	def get(self):
-		user = users.get_current_user()
+def main():
+	application = webapp.WSGIApplication([
+			('/', IndexHandler),
+			('/my/', AccountHandler)
+		], debug=True)
+	run_wsgi_app(application)
+	pass
 
-		template_values = {
-			'user': user,
-			'loginUrl': users.create_login_url('/'),
-			'logoutUrl': users.create_login_url('/')
-		}
-
-		path = os.path.join(os.path.dirname(__file__), 'index.html')
-		self.response.out.write(template.render(path, template_values))
+if __name__ == '__main__':
+	main()

@@ -15,22 +15,19 @@
 # limitations under the License.
 #
 
-import os
-import wsgiref.handlers
-from google.appengine.api import users
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp import template
+from google.appengine.ext import db
 
-class IndexHandler(webapp.RequestHandler):
+class WebSite(db.Model):
+	user = db.UserProperty(auto_current_user_add=True)
+	domain = db.LinkProperty()
 
-	def get(self):
-		user = users.get_current_user()
+class Form(db.Model):
+	user = db.UserProperty(auto_current_user_add = True)
+	website = db.ReferenceProperty(WebSite)
+	name = db.LinkProperty()
 
-		template_values = {
-			'user': user,
-			'loginUrl': users.create_login_url('/'),
-			'logoutUrl': users.create_login_url('/')
-		}
-
-		path = os.path.join(os.path.dirname(__file__), 'index.html')
-		self.response.out.write(template.render(path, template_values))
+class FormFields(db.Model):
+	form = db.ReferenceProperty(Form)
+	name = db.StringProperty()
+	value = db.StringListProperty()
+	checked = db.BooleanProperty()
