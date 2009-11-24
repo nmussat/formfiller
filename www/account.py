@@ -28,7 +28,7 @@ class AccountHandler(webapp.RequestHandler):
 	def get(self):
 		user = users.get_current_user()
 
-		websites = q = WebSite.all().filter("user = ", user)
+		websites = Web.all().filter("user = ", user)
 
 		template_values = {
 			'user': user,
@@ -36,5 +36,5 @@ class AccountHandler(webapp.RequestHandler):
 			'website': websites
 		}
 
-		path = os.path.join(os.path.dirname(__file__), 'account.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates/base_account_index.html')
 		self.response.out.write(template.render(path, template_values))

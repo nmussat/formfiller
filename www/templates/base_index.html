@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+	{{ block.super }}
+	<p>Drag & drop this mighty bookmarklet in your browser's bookmark bar to begin:</p>
+	<a href="javascript: (function() { var s = document.createElement('script'); s.type = 'text/javascript'; s.src= 'http://form-filler.appspot.com/static/formfiller.js'; document.getElementsByTagName('head')[0].append(s); })();">Form Filler</a>
+{% endblock content %}

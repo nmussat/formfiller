@@ -1,0 +1,125 @@
+#facebox {
+	margin: auto auto;
+	max-width: 960px;
+	min-height: 200px;
+	min-width: 200px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 10px;
+	z-index: 100;
+}
+
+#facebox .borders {
+	clear: both;
+	background-color: #7c7c7c;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	width: 100%;
+	opacity: .5;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+#facebox .content {
+	background-color: #fff;
+	min-width: 200px;
+	padding: 8px;
+	position: relative;
+	z-index: 10;
+	overflow: auto;
+}
+
+#facebox .footer {
+	background-color: #dcdcdc;
+	position: relative;
+}
+
+#facebox .close {
+	background: transparent url(../img/jqm_close.png) no-repeat scroll left top;
+	display: block;
+	position: absolute;
+	top: -3px;
+	right: -3px;
+	height: 28px;
+	width: 28px;
+	z-index: 150;
+	text-indent: -9999px;
+	overflow: hidden;
+	outline: none;
+}
+
+#facebox .loading {
+  text-align: center;
+}
+
+#facebox .image {
+  text-align: center;
+}
+
+#facebox .footer img {
+  vertical-align: middle;
+}
+
+#facebox_overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height:100%;
+  width:100%;
+}
+
+.facebox_hide {
+  z-index:-100;
+}
+
+.facebox_overlayBG {
+  background-color: #000;
+  z-index: 99;
+}
+
+* html #facebox_overlay { /* ie6 hack */
+  position: absolute;
+  height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}
+
+
+/*
+#facebox .tl, #facebox .tr, #facebox .bl, #facebox .br {
+  height: 10px;
+  width: 10px;
+  overflow: hidden;
+  padding: 0;
+}
+#facebox .b {
+  background:url(b.png);
+}
+
+#facebox .tl {
+  background:url(fbx-border-sprite.png) 0 0;
+  width: 10px;
+  height: 10px;
+}
+
+#facebox .tr {
+  background:url(fbx-border-sprite.png) -10px 0;
+  width: 10px;
+  height: 10px;
+}
+
+#facebox .bl {
+  background:url(fbx-border-sprite.png) -20px 0;
+  width: 10px;
+  height: 10px;
+}
+
+#facebox .br {
+  background:url(fbx-border-sprite.png) -30px 0;
+  width: 10px;
+  height: 10px;
+}
+*/
+

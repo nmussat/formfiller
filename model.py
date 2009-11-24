@@ -17,17 +17,11 @@
 
 from google.appengine.ext import db
 
-class WebSite(db.Model):
-	user = db.UserProperty(auto_current_user_add=True)
-	domain = db.LinkProperty()
+class Web(db.Model):
+    user = db.UserProperty(auto_current_user_add = True)
+    host = db.LinkProperty(required = True)
 
 class Form(db.Model):
 	user = db.UserProperty(auto_current_user_add = True)
-	website = db.ReferenceProperty(WebSite)
-	name = db.LinkProperty()
-
-class FormFields(db.Model):
-	form = db.ReferenceProperty(Form)
-	name = db.StringProperty()
-	value = db.StringListProperty()
-	checked = db.BooleanProperty()
+	url = db.LinkProperty(required = True)
+	elements = db.TextProperty()

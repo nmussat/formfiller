@@ -1,0 +1,11 @@
+{% extends "base_account.html" %}
+
+{% block page %}
+	<h2>Drag and drop this bookmarklet in your browser toolbar</h2>	
+	<a href="javascript:(function() { var s = document.createElement('script'); s.type = 'text/javascript'; s.charset = 'utf-8'; s.src = '/static/js/formfiller.js'; document.getElementsByTagName('head')[0].appendChild(s); return false; })();">Form filler</a>
+
+	<h2>Your saved forms</h2>
+	{% for web in webs %}
+	    <a href="{{ web.host }}">{{ web.host }}</a>
+	{% endfor %}
+{% endblock %}

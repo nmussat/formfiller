@@ -15,29 +15,4 @@
 # limitations under the License.
 #
 
-import logging
-import os
-import sys
-import pprint
-import wsgiref.handlers
-from google.appengine.api import users
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
-
-from model import *
-from www.index import *
-from www.account import *
-from www.api.forms import *
-
-application = webapp.WSGIApplication([
-		('/', IndexHandler),
-		('/api/form', FormsAPIHandler),
-		('/my/', AccountHandler)
-	], debug=True)
-
-def main():
-	run_wsgi_app(application)
-	pass
-
-if __name__ == '__main__':
-	main()
+"""API controllers and views for FormFiller project"""

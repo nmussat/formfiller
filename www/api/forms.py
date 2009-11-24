@@ -21,16 +21,40 @@ from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 
-class IndexHandler(webapp.RequestHandler):
+from model import *
+
+class FormsAPIHandler(webapp.RequestHandler):
 
 	def get(self):
 		user = users.get_current_user()
 
-		template_values = {
-			'user': user,
-			'loginUrl': users.create_login_url('/'),
-			'logoutUrl': users.create_login_url('/')
-		}
+		# Check user authentication
+		if user is None:
+			url = users.create_login_url('/api/forms')
+			self.redirect(self.request.path)
+			return True
+			
+		# Prepare filters
+		selfDomain = self.request.host
+		referer = self.request.referer # TODO: Get referer host
+		path = self.request.referer # TODO: Get referer path
+		
+		# Get all user's forms
+		forms = Form.all().filter('user = ', user)
+		
+		# Apply all filters
+		if (selfDomain != referer):
+			forms.filter("host = ", referer)
+		if (path != ''):
+			forms.filter("path = ", path)
+		
+		result = {}
+		for form in forms:
+			f = result.append(form.name, {})
+			for field in form.FormFields:
+				f.append(field.name, field.value)
+			
+		self.response.out.write(result.toJSON())
 
-		path = os.path.join(os.path.dirname(__file__), 'templates/base_index.html')
-		self.response.out.write(template.render(path, template_values))
+	def put(self):
+		pass

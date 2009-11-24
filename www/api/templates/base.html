@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}Form Filler{% endblock %}</title>
+	<link rel="stylesheet" href="/static/css/common.css" type="text/css" media="screen" charset="utf-8">
+</head>
+<body>
+	<div id="body">
+		<div id="header">
+			<h1><a href="/">Form filler</a></h1>
+			<div id="account">
+				{% if user %}
+					Hello, {{ user.nickname }} | <a href="/my/">My account</a> | <a href="{{ logoutUrl }}">Signout</a>
+				{% else %}
+					Still filling those form manually ? <a href="{{ loginUrl }}">Signin or Register now !</a>
+				{% endif %}
+			</div>
+		</div>
+		<div id="page">
+			{% block page %}
+			<h2>Automatic html form fields load and save for quick testing.</h2>
+			More info on <a href="http://github.com/nmussat/formfiller">github</a>
+			{% endblock %}
+		</div>
+		<div id="footer">
+		</div>
+	</div>
+	<script type="text/javascript" src="/static/js/common.js"></script>
+</body>
+</html>
