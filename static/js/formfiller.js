@@ -14,10 +14,12 @@
 	var loadResources = function(data, callback) {
 		var head = document.getElementsByTagName('head')[0],
 			data = data || {},
-			count = data.length;
+			count = data.length,
+			callback = typeof callback == 'function' ? callback : false;
 		
 		for (var o in data) {
 			var url = o.url,
+			    localCallback = o.callback,
 				e = null;
 			if (/\.css$/.test(url)) {
 				e = document.createElement('link');
@@ -30,15 +32,36 @@
 				e.type = 'text/javascript';
 				e.href = url;
 			}
-			if (e) {
+			else {
+			    continue;
+			}
+			if (localCallback && typeof localCallback == 'function') {
 				e.onload = function() {
-				    alert('load');
-					if (--count <= 0 && callback && typeof callback == 'function') {
+				    this.localCallbackDone = true;
+					localCallback();
+				}			
+				e.onreadystatechange = function() {
+				    if (this.readyState == 'loaded' && !this.localCallbackDone) {
+				        this.localCallbackDone = true;
+				        localCallback();
+				    }
+				}
+			}
+			if (callback) {
+				e.onload = function() {
+					if (--count <= 0)  {
+					    this.callbackDone = true;
 						callback();
 					}
 				}			
-				head.append(e);
+				e.onreadystatechange = function() {
+				    if (this.readyState == 'loaded' && !this.callbackDone) {
+				        this.callbackDone = true;
+				        callback();
+				    }
+				}
 			}
+			head.append(e);
 		}
 	}
 
@@ -51,9 +74,9 @@
 	
 	// Initialization
 	loadResources([
-	    // { url: staticHost + '/css/formfiller.bookmarklet.css' },
+	    { url: staticHost + '/css/formfiller.bookmarklet.css' },
 	    { url: staticHost + '/js/jquery.min.1.3.2.js', callback: function() { jqFormFiller = jQuery.noConflict(); }},
-		// { url: staticHost + '/js/jquery.facebox.js' }
+		{ url: staticHost + '/js/jquery.facebox.js' }
 	], function() { formFillerUI(jqFormFiller); });
 	
 })();

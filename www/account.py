@@ -28,6 +28,16 @@ class AccountHandler(webapp.RequestHandler):
 	def get(self):
 		user = users.get_current_user()
 
+        bookmarklet = """javascript:(
+            function() {
+                var s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.charset = 'utf-8';
+                s.src = 'http://localhost:8081/static/js/formfiller.js';
+                document.getElementsByTagName('head')[0].appendChild(s);
+                return false;
+            })();"""
+
 		websites = Web.all().filter("user = ", user)
 
 		template_values = {
